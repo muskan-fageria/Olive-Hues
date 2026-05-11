@@ -240,6 +240,22 @@ function renderPalettes(mood) {
         shuffleBtn.textContent = 'Shuffle Colors';
         shuffleBtn.style.fontFamily = `"${mood.headingFont}", sans-serif`;
 
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'save-btn';
+        saveBtn.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+        `;
+        
+        saveBtn.onclick = () => {
+            savePalette(mood.name, currentColors);
+            saveBtn.classList.add('saved');
+            setTimeout(() => saveBtn.classList.remove('saved'), 500);
+        };
+        
+        panel.appendChild(saveBtn);
+
         const updateColors = () => {
             const bgHex = currentColors[0];
             const headingColor = currentColors[1];
@@ -257,6 +273,8 @@ function renderPalettes(mood) {
             
             shuffleBtn.style.color = headingColor;
             shuffleBtn.style.borderColor = headingColor;
+            
+            saveBtn.style.color = headingColor;
 
             row.innerHTML = '';
             originalColors.forEach(color => {
@@ -356,3 +374,90 @@ function isLightColor(color) {
 
 // Start app
 init();
+
+// Basket Logic
+const savedPalettes = [];
+const basketBtn = document.getElementById('basket-btn');
+const basketModal = document.getElementById('basket-modal');
+const closeBasket = document.getElementById('close-basket');
+const basketItemsContainer = document.getElementById('basket-items');
+const basketCount = document.getElementById('basket-count');
+
+if (basketBtn) {
+    basketBtn.onclick = () => {
+        renderBasket();
+        basketModal.classList.add('active');
+    };
+}
+if (closeBasket) {
+    closeBasket.onclick = () => basketModal.classList.remove('active');
+}
+
+function savePalette(moodName, colorsArr) {
+    savedPalettes.push({ moodName, colors: [...colorsArr] });
+    basketCount.textContent = savedPalettes.length;
+}
+
+function renderBasket() {
+    basketItemsContainer.innerHTML = '';
+    if (savedPalettes.length === 0) {
+        basketItemsContainer.innerHTML = '<p style="text-align:center; opacity:0.7">Your basket is empty. Save some palettes!</p>';
+        return;
+    }
+    
+    savedPalettes.forEach((item, index) => {
+        const bgHex = item.colors[0];
+        const headingColor = item.colors[1];
+        const paragraphColor = item.colors[2];
+        const subheadingColor = item.colors[3];
+        const borderColor = item.colors[4];
+
+        const savedItem = document.createElement('div');
+        savedItem.className = 'saved-item glass-panel';
+        savedItem.style.backgroundColor = hexToRgba(bgHex, 0.9);
+        savedItem.style.borderColor = hexToRgba(borderColor, 0.3);
+        savedItem.style.padding = '1.5rem';
+
+        const title = document.createElement('div');
+        title.className = 'saved-item-header';
+        title.textContent = item.moodName;
+        title.style.color = headingColor;
+        title.style.fontSize = '1.2rem';
+        title.style.fontWeight = '600';
+        title.style.marginBottom = '0.5rem';
+
+        const sub = document.createElement('div');
+        sub.textContent = 'Saved Palette';
+        sub.style.color = subheadingColor;
+        sub.style.fontSize = '0.8rem';
+        sub.style.textTransform = 'uppercase';
+        sub.style.marginBottom = '1rem';
+
+        const row = document.createElement('div');
+        row.className = 'saved-item-swatches';
+        item.colors.forEach(c => {
+            const s = document.createElement('div');
+            s.style.backgroundColor = c;
+            s.style.flex = '1';
+            row.appendChild(s);
+        });
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'remove-btn';
+        removeBtn.style.border = `1px solid ${hexToRgba(headingColor, 0.5)}`;
+        removeBtn.style.color = headingColor;
+        removeBtn.onclick = () => {
+            savedPalettes.splice(index, 1);
+            basketCount.textContent = savedPalettes.length;
+            renderBasket();
+        };
+
+        savedItem.appendChild(title);
+        savedItem.appendChild(sub);
+        savedItem.appendChild(row);
+        savedItem.appendChild(removeBtn);
+
+        basketItemsContainer.appendChild(savedItem);
+    });
+}
