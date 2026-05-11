@@ -222,10 +222,15 @@ function renderPalettes(mood) {
         subheading.textContent = `Aesthetic Palette`;
         subheading.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
 
-        const paragraph = document.createElement('p');
-        paragraph.className = 'panel-paragraph';
-        paragraph.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu ac lorem vulputate eleifend. Maecenas scelerisque, sapien a efficitur pellentesque, libero lorem accumsan odio, non semper mauris metus sed diam.";
-        paragraph.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
+        const paragraphDesktop = document.createElement('p');
+        paragraphDesktop.className = 'panel-paragraph desktop-text';
+        paragraphDesktop.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu ac lorem vulputate eleifend. Maecenas scelerisque, sapien a efficitur pellentesque, libero lorem accumsan odio, non semper mauris metus sed diam.";
+        paragraphDesktop.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
+
+        const paragraphMobile = document.createElement('p');
+        paragraphMobile.className = 'panel-paragraph mobile-text';
+        paragraphMobile.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu ac lorem vulputate eleifend.";
+        paragraphMobile.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
 
         const row = document.createElement('div');
         row.className = 'palette-display';
@@ -247,7 +252,8 @@ function renderPalettes(mood) {
 
             heading.style.color = headingColor;
             subheading.style.color = subheadingColor;
-            paragraph.style.color = paragraphColor;
+            paragraphDesktop.style.color = paragraphColor;
+            paragraphMobile.style.color = paragraphColor;
             
             shuffleBtn.style.color = headingColor;
             shuffleBtn.style.borderColor = headingColor;
@@ -307,7 +313,8 @@ function renderPalettes(mood) {
         // Append text elements to textContent
         textContent.appendChild(heading);
         textContent.appendChild(subheading);
-        textContent.appendChild(paragraph);
+        textContent.appendChild(paragraphDesktop);
+        textContent.appendChild(paragraphMobile);
         textContent.appendChild(row);
         textContent.appendChild(shuffleBtn);
 
