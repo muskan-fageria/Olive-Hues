@@ -197,28 +197,12 @@ function hexToRgba(hex, alpha) {
 function renderPalettes(mood) {
     paletteContainer.innerHTML = '';
 
-    mood.palettes.forEach((colors, index) => {
+    mood.palettes.forEach((originalColors, index) => {
         const panel = document.createElement('div');
         panel.className = 'glass-panel palette-panel fade-in';
         panel.style.animationDelay = `${0.2 + (index * 0.1)}s`;
 
-        // Formatting strictly from this color palette
-        const bgHex = colors[0];
-        const bgHsp = getHsp(bgHex);
-
-        let bestTextHex = colors[colors.length - 1];
-        let maxDiff = 0;
-        colors.forEach(c => {
-            const diff = Math.abs(getHsp(c) - bgHsp);
-            if (diff > maxDiff) {
-                maxDiff = diff;
-                bestTextHex = c;
-            }
-        });
-
-        panel.style.backgroundColor = hexToRgba(bgHex, 0.9);
-        panel.style.borderColor = hexToRgba(bestTextHex, 0.2);
-        panel.style.color = bestTextHex;
+        let currentColors = [...originalColors];
 
         // Create Grid
         const grid = document.createElement('div');
@@ -237,59 +221,95 @@ function renderPalettes(mood) {
         subheading.className = 'panel-subheading';
         subheading.textContent = `Aesthetic Palette`;
         subheading.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
-        subheading.style.opacity = '0.7';
 
         const paragraph = document.createElement('p');
         paragraph.className = 'panel-paragraph';
         paragraph.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed arcu ac lorem vulputate eleifend. Maecenas scelerisque, sapien a efficitur pellentesque, libero lorem accumsan odio, non semper mauris metus sed diam.";
         paragraph.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
-        paragraph.style.opacity = '0.9';
 
         const row = document.createElement('div');
         row.className = 'palette-display';
 
-        colors.forEach(color => {
-            const swatch = document.createElement('div');
-            swatch.className = 'color-swatch';
-            swatch.style.backgroundColor = color;
+        const shuffleBtn = document.createElement('button');
+        shuffleBtn.className = 'shuffle-btn';
+        shuffleBtn.textContent = 'Shuffle Colors';
+        shuffleBtn.style.fontFamily = `"${mood.headingFont}", sans-serif`;
 
-            const swatchHsp = getHsp(color);
-            let swatchTextHex = colors[0];
-            let maxSwatchDiff = 0;
-            colors.forEach(c => {
-                const diff = Math.abs(getHsp(c) - swatchHsp);
-                if (diff > maxSwatchDiff) {
-                    maxSwatchDiff = diff;
-                    swatchTextHex = c;
-                }
+        const updateColors = () => {
+            const bgHex = currentColors[0];
+            const headingColor = currentColors[1];
+            const paragraphColor = currentColors[2];
+            const subheadingColor = currentColors[3];
+            const borderColor = currentColors[4];
+
+            panel.style.backgroundColor = hexToRgba(bgHex, 0.9);
+            panel.style.borderColor = hexToRgba(borderColor, 0.3);
+
+            heading.style.color = headingColor;
+            subheading.style.color = subheadingColor;
+            paragraph.style.color = paragraphColor;
+            
+            shuffleBtn.style.color = headingColor;
+            shuffleBtn.style.borderColor = headingColor;
+
+            row.innerHTML = '';
+            originalColors.forEach(color => {
+                const swatch = document.createElement('div');
+                swatch.className = 'color-swatch';
+                swatch.style.backgroundColor = color;
+
+                const swatchHsp = getHsp(color);
+                let swatchTextHex = originalColors[0];
+                let maxSwatchDiff = 0;
+                originalColors.forEach(c => {
+                    const diff = Math.abs(getHsp(c) - swatchHsp);
+                    if (diff > maxSwatchDiff) {
+                        maxSwatchDiff = diff;
+                        swatchTextHex = c;
+                    }
+                });
+
+                const hexBgColor = hexToRgba(color, 0.85);
+
+                swatch.innerHTML = `
+                    <span class="hex-code" style="color: ${swatchTextHex}; background-color: ${hexBgColor}; border: 1px solid ${hexToRgba(swatchTextHex, 0.2)}">
+                        ${color}
+                    </span>
+                `;
+
+                swatch.onclick = () => {
+                    navigator.clipboard.writeText(color);
+                    const hexCode = swatch.querySelector('.hex-code');
+                    const origText = hexCode.textContent.trim();
+                    hexCode.textContent = "Copied!";
+                    setTimeout(() => {
+                        hexCode.textContent = origText;
+                    }, 1200);
+                };
+
+                row.appendChild(swatch);
             });
+        };
 
-            const hexBgColor = hexToRgba(color, 0.85);
+        const bgHsp = getHsp(originalColors[0]);
+        const sorted = originalColors.slice(1).sort((a, b) => Math.abs(getHsp(b) - bgHsp) - Math.abs(getHsp(a) - bgHsp));
+        currentColors = [originalColors[0], sorted[0], sorted[1], sorted[2], sorted[3]];
+        updateColors();
 
-            swatch.innerHTML = `
-                <span class="hex-code" style="color: ${swatchTextHex}; background-color: ${hexBgColor}; border: 1px solid ${hexToRgba(swatchTextHex, 0.2)}">
-                    ${color}
-                </span>
-            `;
-
-            swatch.onclick = () => {
-                navigator.clipboard.writeText(color);
-                const hexCode = swatch.querySelector('.hex-code');
-                const origText = hexCode.textContent.trim();
-                hexCode.textContent = "Copied!";
-                setTimeout(() => {
-                    hexCode.textContent = origText;
-                }, 1200);
-            };
-
-            row.appendChild(swatch);
-        });
+        shuffleBtn.onclick = () => {
+            for (let i = currentColors.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentColors[i], currentColors[j]] = [currentColors[j], currentColors[i]];
+            }
+            updateColors();
+        };
 
         // Append text elements to textContent
         textContent.appendChild(heading);
         textContent.appendChild(subheading);
         textContent.appendChild(paragraph);
         textContent.appendChild(row);
+        textContent.appendChild(shuffleBtn);
 
         // Image Container
         const imageContainer = document.createElement('div');
