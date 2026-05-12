@@ -560,7 +560,7 @@ async function savePalette(moodName, colorsArr) {
         const { error } = await supabaseClient
             .from('palettes')
             .insert([
-                { mood_name: moodName, colors: [...colorsArr] }
+                { mood: moodName, colors: [...colorsArr] }
             ]);
 
         if (error) throw error;
@@ -594,7 +594,7 @@ function renderBasket() {
 
         const title = document.createElement('div');
         title.className = 'saved-item-header';
-        title.textContent = item.mood_name;
+        title.textContent = item.mood;
         title.style.color = headingColor;
         title.style.fontSize = '1.2rem';
         title.style.fontWeight = '600';
