@@ -470,12 +470,20 @@ function isLightColor(color) {
 init();
 
 // Basket Logic
-const savedPalettes = [];
+const savedPalettes = JSON.parse(localStorage.getItem('moodBoardPalettes')) || [];
 const basketBtn = document.getElementById('basket-btn');
 const basketModal = document.getElementById('basket-modal');
 const closeBasket = document.getElementById('close-basket');
 const basketItemsContainer = document.getElementById('basket-items');
 const basketCount = document.getElementById('basket-count');
+
+if (basketCount) {
+    basketCount.textContent = savedPalettes.length;
+}
+
+function updateLocalStorage() {
+    localStorage.setItem('moodBoardPalettes', JSON.stringify(savedPalettes));
+}
 
 if (basketBtn) {
     basketBtn.onclick = () => {
@@ -490,12 +498,13 @@ if (closeBasket) {
 function savePalette(moodName, colorsArr) {
     savedPalettes.push({ moodName, colors: [...colorsArr] });
     basketCount.textContent = savedPalettes.length;
+    updateLocalStorage();
 }
 
 function renderBasket() {
     basketItemsContainer.innerHTML = '';
     if (savedPalettes.length === 0) {
-        basketItemsContainer.innerHTML = '<p style="text-align:center; opacity:0.7">Your basket is empty. Save some palettes!</p>';
+        basketItemsContainer.innerHTML = '<p style="text-align:center; opacity:0.7">No palettes saved yet</p>';
         return;
     }
 
@@ -544,6 +553,7 @@ function renderBasket() {
         removeBtn.onclick = () => {
             savedPalettes.splice(index, 1);
             basketCount.textContent = savedPalettes.length;
+            updateLocalStorage();
             renderBasket();
         };
 
