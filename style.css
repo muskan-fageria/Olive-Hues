@@ -31,6 +31,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 header {
@@ -120,7 +122,8 @@ header {
 }
 
 .adjacent-panel {
-    display: none; /* Hidden on mobile */
+    display: none;
+    /* Hidden on mobile */
     padding: 2.5rem;
 }
 
