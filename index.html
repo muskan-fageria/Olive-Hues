@@ -25,13 +25,30 @@
         </svg>
         <span id="basket-count" class="basket-count">0</span>
     </button>
+    
+    <a href="custom.html" id="custom-link-btn" class="basket-btn" style="top: calc(2rem + 70px);" title="Create Custom Theme">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+    </a>
 
     <!-- Basket Modal -->
     <div id="basket-modal" class="basket-modal">
         <div class="basket-content glass-panel">
             <div class="basket-header">
                 <h2>Saved Palettes</h2>
-                <button id="close-basket" class="close-btn">&times;</button>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <a href="custom.html" class="custom-theme-btn" title="Create Custom Theme">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </a>
+                    <button id="close-basket" class="close-btn">&times;</button>
+                </div>
             </div>
             <div id="basket-items" class="basket-items">
                 <!-- Saved items go here -->

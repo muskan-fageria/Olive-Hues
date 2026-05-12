@@ -616,11 +616,35 @@ function renderBasket() {
             row.appendChild(s);
         });
 
+        const actionsRow = document.createElement('div');
+        actionsRow.style.display = 'flex';
+        actionsRow.style.gap = '0.5rem';
+
+        const editBtn = document.createElement('button');
+        editBtn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+        `;
+        editBtn.className = 'remove-btn';
+        editBtn.style.border = `1px solid ${hexToRgba(headingColor, 0.5)}`;
+        editBtn.style.color = headingColor;
+        editBtn.style.padding = '0.5rem';
+        editBtn.style.display = 'flex';
+        editBtn.style.alignItems = 'center';
+        editBtn.style.justifyContent = 'center';
+        editBtn.title = 'Edit Palette';
+        editBtn.onclick = () => {
+            window.location.href = `custom.html?edit=${item.id}`;
+        };
+
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
         removeBtn.className = 'remove-btn';
         removeBtn.style.border = `1px solid ${hexToRgba(headingColor, 0.5)}`;
         removeBtn.style.color = headingColor;
+        removeBtn.style.flex = '1';
         removeBtn.onclick = async () => {
             removeBtn.textContent = 'Removing...';
             removeBtn.disabled = true;
@@ -642,10 +666,13 @@ function renderBasket() {
             }
         };
 
+        actionsRow.appendChild(editBtn);
+        actionsRow.appendChild(removeBtn);
+
         savedItem.appendChild(title);
         savedItem.appendChild(sub);
         savedItem.appendChild(row);
-        savedItem.appendChild(removeBtn);
+        savedItem.appendChild(actionsRow);
 
         basketItemsContainer.appendChild(savedItem);
     });

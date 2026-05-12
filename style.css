@@ -665,6 +665,43 @@ header {
     color: inherit;
 }
 
+.custom-theme-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-theme-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.custom-hex-input {
+    width: 100%;
+    max-width: 100px;
+    padding: 0.5rem;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-hex-input:focus {
+    border-color: var(--text-main);
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .basket-items {
     display: flex;
     flex-direction: column;
