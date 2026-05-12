@@ -165,6 +165,42 @@ function setMood(mood, activeBtn) {
     document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
     if (activeBtn) activeBtn.classList.add('active');
 
+    // Bubble Animation Logic
+    const bgLayer = document.getElementById('bg-layer');
+    if (bgLayer) {
+        const oldBgColor = getComputedStyle(bgLayer).backgroundColor;
+        bgLayer.style.backgroundColor = oldBgColor;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'mood-bubble';
+        bubble.style.backgroundColor = mood.bgColor;
+
+        let x = window.innerWidth / 2;
+        let y = window.innerHeight / 2;
+        if (activeBtn) {
+            const rect = activeBtn.getBoundingClientRect();
+            x = rect.left + rect.width / 2;
+            y = rect.top + rect.height / 2;
+        }
+
+        bubble.style.left = `${x}px`;
+        bubble.style.top = `${y}px`;
+        document.body.appendChild(bubble);
+
+        const maxDistX = Math.max(x, window.innerWidth - x);
+        const maxDistY = Math.max(y, window.innerHeight - y);
+        const maxRadius = Math.sqrt(maxDistX * maxDistX + maxDistY * maxDistY);
+        const scale = maxRadius + 10; 
+
+        void bubble.offsetWidth;
+        bubble.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+        setTimeout(() => {
+            bgLayer.style.backgroundColor = '';
+            bubble.remove();
+        }, 800);
+    }
+
     // Update root CSS variables for theme
     root.style.setProperty('--bg-color', mood.bgColor);
     root.style.setProperty('--text-main', mood.textColor);

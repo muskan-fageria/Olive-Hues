@@ -15,14 +15,34 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    transition: background-color 0.8s ease, color 0.8s ease;
+    transition: color 0.8s ease;
+}
+
+.bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    z-index: -2;
+}
+
+.mood-bubble {
+    position: fixed;
+    border-radius: 50%;
+    width: 2px;
+    height: 2px;
+    z-index: -1;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
