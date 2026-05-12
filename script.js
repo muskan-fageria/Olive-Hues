@@ -9,7 +9,11 @@ const moods = [
             ["#FFFFFF", "#F4F4F5", "#D4D4D8", "#71717A", "#18181B"],
             ["#FAFAFA", "#E5E5E5", "#A3A3A3", "#525252", "#171717"],
             ["#F8F9FA", "#E9ECEF", "#DEE2E6", "#6C757D", "#212529"],
-            ["#F2F0EA", "#E4E1DB", "#C9C7C1", "#8C8A85", "#2C2C2A"]
+            ["#F2F0EA", "#E4E1DB", "#C9C7C1", "#8C8A85", "#2C2C2A"],
+            ["#F0EAE1", "#C6B497", "#8A7968", "#544E48", "#2B2824"],
+            ["#EBF4F6", "#B2C9D5", "#7A9BAA", "#466B7D", "#1C3E50"],
+            ["#F4F7F5", "#C2D1C9", "#8AA69A", "#5B796D", "#2F4A3F"],
+            ["#FAFAFA", "#D4D4D4", "#A3A3A3", "#525252", "#0A0A0A"]
         ],
         bgColor: "#E4E4E7",
         textColor: "#18181B",
@@ -27,7 +31,11 @@ const moods = [
             ["#1B1814", "#302B27", "#4C4138", "#7C6D5F", "#B5A799"],
             ["#1C2321", "#36453B", "#596854", "#A2A79E", "#D1D5DE"],
             ["#231F20", "#4B3B40", "#826C7F", "#B19CD9", "#E0C8DE"],
-            ["#261C15", "#473322", "#7E5939", "#A67B5B", "#D2B48C"]
+            ["#261C15", "#473322", "#7E5939", "#A67B5B", "#D2B48C"],
+            ["#2B1910", "#4A2E1B", "#704214", "#A87C51", "#D8B48C"],
+            ["#1A1C20", "#2C3539", "#4A5D65", "#8E9A9E", "#C2C8C6"],
+            ["#2C1A1D", "#4A252A", "#73363F", "#A35C66", "#D49A9E"],
+            ["#20221A", "#3B3F2A", "#5B6338", "#8B965C", "#C4CFA1"]
         ],
         bgColor: "#141210",
         textColor: "#E6DCD3",
@@ -45,7 +53,11 @@ const moods = [
             ["#5C715E", "#8B9A80", "#EAE2D6", "#D6C5B3", "#C49C8D"],
             ["#6B8E23", "#9ACD32", "#FFF8DC", "#FFE4C4", "#D2B48C"],
             ["#8F9779", "#B2B09B", "#FDF5E6", "#E3DAC9", "#C1A68D"],
-            ["#556B2F", "#8FBC8F", "#FAF0E6", "#E8A38F", "#CD5C5C"]
+            ["#556B2F", "#8FBC8F", "#FAF0E6", "#E8A38F", "#CD5C5C"],
+            ["#FFF0F5", "#FFB6C1", "#DB7093", "#93577d", "#8B0000"],
+            ["#FFFFF0", "#FFFACD", "#ADD8E6", "#90EE90", "#228B22"],
+            ["#FFF8DC", "#FFDEAD", "#F4A460", "#D2691E", "#8B4513"],
+            ["#F8F8FF", "#E6E6FA", "#D8BFD8", "#9370DB", "#4B0082"]
         ],
         bgColor: "#F4F1ED",
         textColor: "#3F4E40",
@@ -63,7 +75,11 @@ const moods = [
             ["#FF2A54", "#FF9900", "#FFD700", "#00E5FF", "#8A2BE2"],
             ["#FF007F", "#FF5E00", "#FFC300", "#00FF00", "#0000FF"],
             ["#F72585", "#7209B7", "#3A0CA3", "#4361EE", "#4CC9F0"],
-            ["#FF3F8E", "#FF7A00", "#FFD600", "#00FF9D", "#6F00FF"]
+            ["#FF3F8E", "#FF7A00", "#FFD600", "#00FF9D", "#6F00FF"],
+            ["#FFEA00", "#FF0055", "#00E5FF", "#AA00FF", "#000000"],
+            ["#00F5D4", "#FEE440", "#FF007F", "#9B5DE5", "#00BBF9"],
+            ["#39FF14", "#FF00FF", "#FF7F00", "#00FFFF", "#FFFF00"],
+            ["#FF0000", "#0000FF", "#FFFF00", "#00FF00", "#000000"]
         ],
         bgColor: "#F0F4F8",
         textColor: "#0A0A0A",
@@ -81,7 +97,11 @@ const moods = [
             ["#29323C", "#635246", "#C7B3A1", "#EDE4DB", "#F6EFE9"],
             ["#3D2B1F", "#6B4423", "#9C6A48", "#C3A082", "#E8D8C8"],
             ["#2A3439", "#4F5D65", "#8E9A9E", "#C2C8C6", "#E2E5E3"],
-            ["#4A3728", "#7D5A40", "#B88E6D", "#E0C3A9", "#F7EADC"]
+            ["#4A3728", "#7D5A40", "#B88E6D", "#E0C3A9", "#F7EADC"],
+            ["#E3E8EA", "#B0C4DE", "#708090", "#4A5D6E", "#2F3E46"],
+            ["#FAD6A5", "#E07A5F", "#C44536", "#772E25", "#283D3B"],
+            ["#F1EAD7", "#D4E09B", "#A4C3B2", "#6B9080", "#3E5046"],
+            ["#EFE9ED", "#D1B3C4", "#B38CB4", "#825C79", "#4A3B4C"]
         ],
         bgColor: "#DFD3C8",
         textColor: "#3D3128",
@@ -99,7 +119,11 @@ const moods = [
             ["#0B0C10", "#1F2833", "#C5C6C7", "#45A29E", "#66FCF1"],
             ["#000000", "#0B192C", "#1A365D", "#2B6CB0", "#63B3ED"],
             ["#050505", "#140021", "#3B0066", "#7300FF", "#E100FF"],
-            ["#020202", "#0A1F0A", "#1A401A", "#33FF33", "#CCFFCC"]
+            ["#020202", "#0A1F0A", "#1A401A", "#33FF33", "#CCFFCC"],
+            ["#0D0221", "#261447", "#F706CF", "#2DE2E6", "#FF6C11"],
+            ["#050A05", "#0F2E0F", "#248224", "#39FF14", "#D8FFD8"],
+            ["#110022", "#3B0066", "#FF0055", "#FFD700", "#00EEFF"],
+            ["#1A0033", "#5C007A", "#E60073", "#FF4D4D", "#FFA64D"]
         ],
         bgColor: "#050608",
         textColor: "#66FCF1",
@@ -247,13 +271,13 @@ function renderPalettes(mood) {
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
             </svg>
         `;
-        
+
         saveBtn.onclick = () => {
             savePalette(mood.name, currentColors);
             saveBtn.classList.add('saved');
             setTimeout(() => saveBtn.classList.remove('saved'), 500);
         };
-        
+
         panel.appendChild(saveBtn);
 
         const updateColors = () => {
@@ -270,10 +294,10 @@ function renderPalettes(mood) {
             subheading.style.color = subheadingColor;
             paragraphDesktop.style.color = paragraphColor;
             paragraphMobile.style.color = paragraphColor;
-            
+
             shuffleBtn.style.color = headingColor;
             shuffleBtn.style.borderColor = headingColor;
-            
+
             saveBtn.style.color = headingColor;
 
             row.innerHTML = '';
@@ -404,7 +428,7 @@ function renderBasket() {
         basketItemsContainer.innerHTML = '<p style="text-align:center; opacity:0.7">Your basket is empty. Save some palettes!</p>';
         return;
     }
-    
+
     savedPalettes.forEach((item, index) => {
         const bgHex = item.colors[0];
         const headingColor = item.colors[1];
