@@ -222,9 +222,12 @@ function renderPalettes(mood) {
     paletteContainer.innerHTML = '';
 
     mood.palettes.forEach((originalColors, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'panel-wrapper fade-in';
+        wrapper.style.animationDelay = `${0.2 + (index * 0.1)}s`;
+
         const panel = document.createElement('div');
-        panel.className = 'glass-panel palette-panel fade-in';
-        panel.style.animationDelay = `${0.2 + (index * 0.1)}s`;
+        panel.className = 'glass-panel palette-panel';
 
         let currentColors = [...originalColors];
 
@@ -280,6 +283,46 @@ function renderPalettes(mood) {
 
         panel.appendChild(saveBtn);
 
+        const adjacentPanel = document.createElement('div');
+        adjacentPanel.className = 'glass-panel adjacent-panel';
+
+        const artContainer = document.createElement('div');
+        artContainer.className = 'css-art-container';
+
+        const artBgLeft = document.createElement('div');
+        artBgLeft.className = 'art-bg-left';
+
+        const artBgRight = document.createElement('div');
+        artBgRight.className = 'art-bg-right';
+
+        const artTopShape = document.createElement('div');
+        artTopShape.className = 'art-top-shape';
+
+        const artHeading = document.createElement('h3');
+        artHeading.textContent = `Variant ${index + 1}`;
+        artHeading.style.fontFamily = `"${mood.headingFont}", sans-serif`;
+
+        const artSubheading = document.createElement('p');
+        artSubheading.textContent = mood.name;
+        artSubheading.style.fontFamily = `"${mood.bodyFont}", sans-serif`;
+
+        artTopShape.appendChild(artHeading);
+        artTopShape.appendChild(artSubheading);
+
+        const artMainShape = document.createElement('div');
+        artMainShape.className = 'art-main-shape';
+
+        const artHorizontalRect = document.createElement('div');
+        artHorizontalRect.className = 'art-horizontal-rect';
+
+        artContainer.appendChild(artBgLeft);
+        artContainer.appendChild(artBgRight);
+        artContainer.appendChild(artTopShape);
+        artContainer.appendChild(artMainShape);
+        artContainer.appendChild(artHorizontalRect);
+
+        adjacentPanel.appendChild(artContainer);
+
         const updateColors = () => {
             const bgHex = currentColors[0];
             const headingColor = currentColors[1];
@@ -289,6 +332,29 @@ function renderPalettes(mood) {
 
             panel.style.backgroundColor = hexToRgba(bgHex, 0.9);
             panel.style.borderColor = hexToRgba(borderColor, 0.3);
+
+            adjacentPanel.style.backgroundColor = hexToRgba(bgHex, 0.9);
+            adjacentPanel.style.borderColor = hexToRgba(borderColor, 0.3);
+
+            artBgLeft.style.backgroundColor = currentColors[0];
+            artBgRight.style.backgroundColor = currentColors[1];
+            artTopShape.style.backgroundColor = currentColors[2];
+            artMainShape.style.backgroundColor = currentColors[3];
+            artHorizontalRect.style.backgroundColor = currentColors[4];
+
+            const topShapeBgHsp = getHsp(currentColors[2]);
+            let bestTextColor = currentColors[0];
+            let maxDiff = 0;
+            currentColors.forEach(c => {
+                const diff = Math.abs(getHsp(c) - topShapeBgHsp);
+                if (diff > maxDiff) {
+                    maxDiff = diff;
+                    bestTextColor = c;
+                }
+            });
+
+            artHeading.style.color = bestTextColor;
+            artSubheading.style.color = bestTextColor;
 
             heading.style.color = headingColor;
             subheading.style.color = subheadingColor;
@@ -376,7 +442,11 @@ function renderPalettes(mood) {
         grid.appendChild(imageContainer);
 
         panel.appendChild(grid);
-        paletteContainer.appendChild(panel);
+        
+        wrapper.appendChild(panel);
+        wrapper.appendChild(adjacentPanel);
+        
+        paletteContainer.appendChild(wrapper);
     });
 }
 
