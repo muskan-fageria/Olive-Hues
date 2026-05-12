@@ -190,7 +190,7 @@ function setMood(mood, activeBtn) {
         const maxDistX = Math.max(x, window.innerWidth - x);
         const maxDistY = Math.max(y, window.innerHeight - y);
         const maxRadius = Math.sqrt(maxDistX * maxDistX + maxDistY * maxDistY);
-        const scale = maxRadius + 10; 
+        const scale = maxRadius + 10;
 
         void bubble.offsetWidth;
         bubble.style.transform = `translate(-50%, -50%) scale(${scale})`;
@@ -478,10 +478,10 @@ function renderPalettes(mood) {
         grid.appendChild(imageContainer);
 
         panel.appendChild(grid);
-        
+
         wrapper.appendChild(panel);
         wrapper.appendChild(adjacentPanel);
-        
+
         paletteContainer.appendChild(wrapper);
     });
 }
@@ -525,14 +525,14 @@ async function fetchPalettes() {
             .from('palettes')
             .select('*')
             .order('created_at', { ascending: false });
-            
+
         if (error) throw error;
-        
+
         savedPalettes = data || [];
         if (basketCount) {
             basketCount.textContent = savedPalettes.length;
         }
-        
+
         // If modal is open, re-render
         if (basketModal.classList.contains('active')) {
             renderBasket();
@@ -562,9 +562,9 @@ async function savePalette(moodName, colorsArr) {
             .insert([
                 { mood_name: moodName, colors: [...colorsArr] }
             ]);
-            
+
         if (error) throw error;
-        
+
         await fetchPalettes();
     } catch (error) {
         console.error('Error saving palette:', error);
@@ -624,15 +624,15 @@ function renderBasket() {
         removeBtn.onclick = async () => {
             removeBtn.textContent = 'Removing...';
             removeBtn.disabled = true;
-            
+
             try {
                 const { error } = await supabaseClient
                     .from('palettes')
                     .delete()
                     .eq('id', item.id);
-                    
+
                 if (error) throw error;
-                
+
                 await fetchPalettes();
             } catch (error) {
                 console.error('Error deleting palette:', error);
