@@ -556,6 +556,17 @@ if (closeBasket) {
 }
 
 async function savePalette(moodName, colorsArr) {
+    // Duplicate check
+    const isDuplicate = savedPalettes.some(palette => 
+        palette.colors.length === colorsArr.length && 
+        palette.colors.every((val, index) => val.toLowerCase() === colorsArr[index].toLowerCase())
+    );
+
+    if (isDuplicate) {
+        alert('This exact color palette is already saved in your basket!');
+        return;
+    }
+
     try {
         const { error } = await supabaseClient
             .from('palettes')

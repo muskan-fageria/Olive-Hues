@@ -226,6 +226,24 @@ function createCustomPanel(startColors = null, editId = null) {
                     .eq('id', editId);
                 if (error) throw error;
             } else {
+                // Check for duplicates
+                const { data: existingPalettes, error: fetchErr } = await supabaseClient
+                    .from('palettes')
+                    .select('colors');
+                if (fetchErr) throw fetchErr;
+                
+                const isDuplicate = existingPalettes && existingPalettes.some(palette => 
+                    palette.colors && palette.colors.length === currentColors.length && 
+                    palette.colors.every((val, idx) => val.toLowerCase() === currentColors[idx].toLowerCase())
+                );
+                
+                if (isDuplicate) {
+                    alert('This exact color palette is already saved!');
+                    saveBtn.textContent = 'Save Custom Palette';
+                    saveBtn.disabled = false;
+                    return;
+                }
+
                 const { error } = await supabaseClient
                     .from('palettes')
                     .insert([
