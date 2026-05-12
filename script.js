@@ -505,21 +505,45 @@ function isLightColor(color) {
 // Start app
 init();
 
+// Supabase Setup
+const { createClient } = supabase;
+const supabaseUrl = 'https://gezkzveuhugkbuilhvpv.supabase.co';
+const supabaseKey = 'sb_publishable_UVhKpQAxK1aBv_cP35blgg_4il4zcnI';
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
 // Basket Logic
-const savedPalettes = JSON.parse(localStorage.getItem('moodBoardPalettes')) || [];
+let savedPalettes = [];
 const basketBtn = document.getElementById('basket-btn');
 const basketModal = document.getElementById('basket-modal');
 const closeBasket = document.getElementById('close-basket');
 const basketItemsContainer = document.getElementById('basket-items');
 const basketCount = document.getElementById('basket-count');
 
-if (basketCount) {
-    basketCount.textContent = savedPalettes.length;
+async function fetchPalettes() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('palettes')
+            .select('*')
+            .order('created_at', { ascending: false });
+            
+        if (error) throw error;
+        
+        savedPalettes = data || [];
+        if (basketCount) {
+            basketCount.textContent = savedPalettes.length;
+        }
+        
+        // If modal is open, re-render
+        if (basketModal.classList.contains('active')) {
+            renderBasket();
+        }
+    } catch (error) {
+        console.error('Error fetching palettes:', error);
+    }
 }
 
-function updateLocalStorage() {
-    localStorage.setItem('moodBoardPalettes', JSON.stringify(savedPalettes));
-}
+// Fetch initially
+fetchPalettes();
 
 if (basketBtn) {
     basketBtn.onclick = () => {
@@ -531,10 +555,21 @@ if (closeBasket) {
     closeBasket.onclick = () => basketModal.classList.remove('active');
 }
 
-function savePalette(moodName, colorsArr) {
-    savedPalettes.push({ moodName, colors: [...colorsArr] });
-    basketCount.textContent = savedPalettes.length;
-    updateLocalStorage();
+async function savePalette(moodName, colorsArr) {
+    try {
+        const { error } = await supabaseClient
+            .from('palettes')
+            .insert([
+                { mood_name: moodName, colors: [...colorsArr] }
+            ]);
+            
+        if (error) throw error;
+        
+        await fetchPalettes();
+    } catch (error) {
+        console.error('Error saving palette:', error);
+        alert('Failed to save palette to database. Make sure the palettes table exists in Supabase.');
+    }
 }
 
 function renderBasket() {
@@ -544,7 +579,7 @@ function renderBasket() {
         return;
     }
 
-    savedPalettes.forEach((item, index) => {
+    savedPalettes.forEach((item) => {
         const bgHex = item.colors[0];
         const headingColor = item.colors[1];
         const paragraphColor = item.colors[2];
@@ -559,7 +594,7 @@ function renderBasket() {
 
         const title = document.createElement('div');
         title.className = 'saved-item-header';
-        title.textContent = item.moodName;
+        title.textContent = item.mood_name;
         title.style.color = headingColor;
         title.style.fontSize = '1.2rem';
         title.style.fontWeight = '600';
@@ -586,11 +621,25 @@ function renderBasket() {
         removeBtn.className = 'remove-btn';
         removeBtn.style.border = `1px solid ${hexToRgba(headingColor, 0.5)}`;
         removeBtn.style.color = headingColor;
-        removeBtn.onclick = () => {
-            savedPalettes.splice(index, 1);
-            basketCount.textContent = savedPalettes.length;
-            updateLocalStorage();
-            renderBasket();
+        removeBtn.onclick = async () => {
+            removeBtn.textContent = 'Removing...';
+            removeBtn.disabled = true;
+            
+            try {
+                const { error } = await supabaseClient
+                    .from('palettes')
+                    .delete()
+                    .eq('id', item.id);
+                    
+                if (error) throw error;
+                
+                await fetchPalettes();
+            } catch (error) {
+                console.error('Error deleting palette:', error);
+                alert('Failed to delete palette from database.');
+                removeBtn.textContent = 'Remove';
+                removeBtn.disabled = false;
+            }
         };
 
         savedItem.appendChild(title);
