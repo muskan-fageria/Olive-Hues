@@ -568,17 +568,19 @@ header {
         flex: 1;
     }
 
-    .adjacent-panel {
-        display: block;
-        flex: 0.6;
-    }
-
     .mobile-text {
         display: none;
     }
 
     .desktop-text {
         display: block;
+    }
+}
+
+@media (min-width: 1050px) {
+    .adjacent-panel {
+        display: block;
+        flex: 0.6;
     }
 }
 
