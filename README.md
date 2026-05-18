@@ -57,6 +57,7 @@ Olive-Hues/
 
 🌐 Live Demo: olive-hues.vercel.app
 ---
-<img width="950" height="412" alt="image" src="https://github.com/user-attachments/assets/cd0af46a-cede-4a73-96ae-700a1b13a45b" />
+<img width="946" height="415" alt="image" src="https://github.com/user-attachments/assets/ba78df18-30b0-468d-a923-df09112c1e60" />
+
 
 *Created with ❤️ by [Muskan Fageria](https://github.com/muskan-fageria)*
