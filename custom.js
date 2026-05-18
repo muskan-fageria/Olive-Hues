@@ -182,11 +182,36 @@ function createCustomPanel(startColors = null, editId = null) {
         inputLabel.style.opacity = '0.7';
         inputLabel.style.marginBottom = '0.5rem';
 
+        const inputGroup = document.createElement('div');
+        inputGroup.style.display = 'flex';
+        inputGroup.style.alignItems = 'center';
+        inputGroup.style.gap = '0.5rem';
+
+        const colorPicker = document.createElement('input');
+        colorPicker.type = 'color';
+        colorPicker.value = color;
+        colorPicker.style.border = 'none';
+        colorPicker.style.background = 'transparent';
+        colorPicker.style.width = '30px';
+        colorPicker.style.height = '30px';
+        colorPicker.style.cursor = 'pointer';
+        colorPicker.style.padding = '0';
+        colorPicker.style.borderRadius = '50%';
+        colorPicker.style.overflow = 'hidden';
+
         const input = document.createElement('input');
         input.type = 'text';
         input.value = color;
         input.className = 'custom-hex-input';
         input.maxLength = 7;
+        
+        colorPicker.addEventListener('input', (e) => {
+            const val = e.target.value.toUpperCase();
+            input.value = val;
+            swatch.style.backgroundColor = val;
+            currentColors[index] = val;
+            updatePanelColors();
+        });
         
         input.addEventListener('input', (e) => {
             let val = e.target.value.trim();
@@ -196,12 +221,19 @@ function createCustomPanel(startColors = null, editId = null) {
             if (/^#[0-9A-Fa-f]{6}$/.test(val) || /^#[0-9A-Fa-f]{3}$/.test(val)) {
                 swatch.style.backgroundColor = val;
                 currentColors[index] = val;
+                // Update color picker if it's a valid 6-character hex
+                if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                    colorPicker.value = val;
+                }
                 updatePanelColors();
             }
         });
 
+        inputGroup.appendChild(colorPicker);
+        inputGroup.appendChild(input);
+
         inputWrapper.appendChild(inputLabel);
-        inputWrapper.appendChild(input);
+        inputWrapper.appendChild(inputGroup);
         inputsContainer.appendChild(inputWrapper);
     });
 

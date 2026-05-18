@@ -130,6 +130,28 @@ const moods = [
         mutedColor: "#898B8E",
         cardBg: "rgba(31, 40, 51, 0.4)",
         cardBorder: "rgba(102, 252, 241, 0.2)"
+    },
+    {
+        id: "night-life",
+        name: "Night Life",
+        quote: "The city comes alive when the sun goes down.",
+        headingFont: "Poppins",
+        bodyFont: "Inter",
+        palettes: [
+            ["#241C1F", "#0C3E45", "#0E9BA0", "#FD5273", "#F7DCCF"],
+            ["#26121B", "#1B3858", "#741A34", "#CF2437", "#F46C14"],
+            ["#3A3455", "#481535", "#79657A", "#D183A9", "#F3C8DD"],
+            ["#12153D", "#2D6A8C", "#7997E6", "#B376D4", "#CA49F3"],
+            ["#1A2A4A", "#5079A0", "#D0B5D2", "#F1D6EB", "#FFFFFF"],
+            ["#111111", "#343334", "#E1443E", "#F7A87A", "#F2CF2A"],
+            ["#111111", "#1A2127", "#343334", "#724839", "#CF9D7E"],
+            ["#242730", "#555C71", "#857C91", "#B2A5B1", "#E2D4DE"]
+        ],
+        bgColor: "#050505",
+        textColor: "#F8F8F8",
+        mutedColor: "#808080",
+        cardBg: "rgba(20, 20, 25, 0.6)",
+        cardBorder: "rgba(255, 42, 84, 0.3)"
     }
 ];
 
