@@ -519,6 +519,34 @@ const closeBasket = document.getElementById('close-basket');
 const basketItemsContainer = document.getElementById('basket-items');
 const basketCount = document.getElementById('basket-count');
 
+function showToast(message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    
+    // trigger animation
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 400); // match transition duration
+    }, 3000);
+}
+
 async function fetchPalettes() {
     try {
         const { data, error } = await supabaseClient
@@ -563,7 +591,7 @@ async function savePalette(moodName, colorsArr) {
     );
 
     if (isDuplicate) {
-        alert('This exact color palette is already saved in your basket!');
+        showToast('This exact color palette is already saved in your basket!');
         return;
     }
 
@@ -579,7 +607,7 @@ async function savePalette(moodName, colorsArr) {
         await fetchPalettes();
     } catch (error) {
         console.error('Error saving palette:', error);
-        alert('Failed to save palette to database. Make sure the palettes table exists in Supabase.');
+        showToast('Failed to save palette to database. Make sure the palettes table exists in Supabase.');
     }
 }
 
@@ -671,7 +699,7 @@ function renderBasket() {
                 await fetchPalettes();
             } catch (error) {
                 console.error('Error deleting palette:', error);
-                alert('Failed to delete palette from database.');
+                showToast('Failed to delete palette from database.');
                 removeBtn.textContent = 'Remove';
                 removeBtn.disabled = false;
             }
