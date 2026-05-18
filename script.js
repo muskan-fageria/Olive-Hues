@@ -138,14 +138,14 @@ const moods = [
         headingFont: "Poppins",
         bodyFont: "Inter",
         palettes: [
-            ["#241C1F", "#0C3E45", "#0E9BA0", "#FD5273", "#F7DCCF"],
-            ["#26121B", "#1B3858", "#741A34", "#CF2437", "#F46C14"],
-            ["#3A3455", "#481535", "#79657A", "#D183A9", "#F3C8DD"],
-            ["#12153D", "#2D6A8C", "#7997E6", "#B376D4", "#CA49F3"],
-            ["#1A2A4A", "#5079A0", "#D0B5D2", "#F1D6EB", "#FFFFFF"],
-            ["#111111", "#343334", "#E1443E", "#F7A87A", "#F2CF2A"],
-            ["#111111", "#1A2127", "#343334", "#724839", "#CF9D7E"],
-            ["#242730", "#555C71", "#857C91", "#B2A5B1", "#E2D4DE"]
+            ["#0A0A0A", "#C0C0C0", "#E5E4E2", "#FFD700", "#FFFACD"],
+            ["#181818", "#B8860B", "#D4AF37", "#C0C0C0", "#E5E4E2"],
+            ["#0B1021", "#A8A9AD", "#E5E4E2", "#F2F2F2", "#FFFFFF"],
+            ["#1A0B14", "#B76E79", "#E5E4E2", "#FFB6C1", "#C0C0C0"],
+            ["#050505", "#CFB53B", "#D3D3D3", "#E5E4E2", "#2B2B2B"],
+            ["#0F0F0F", "#C0C0C0", "#F0F0F0", "#DAA520", "#EEE8AA"],
+            ["#111111", "#998542", "#A9A9A9", "#E5E4E2", "#FDFCF0"],
+            ["#000000", "#F5F5DC", "#DCDCDC", "#E5E4E2", "#8A8A8A"]
         ],
         bgColor: "#050505",
         textColor: "#F8F8F8",
@@ -224,6 +224,7 @@ function setMood(mood, activeBtn) {
     }
 
     // Update root CSS variables for theme
+    root.setAttribute('data-theme', mood.id);
     root.style.setProperty('--bg-color', mood.bgColor);
     root.style.setProperty('--text-main', mood.textColor);
     root.style.setProperty('--text-muted', mood.mutedColor);
