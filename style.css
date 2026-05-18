@@ -804,3 +804,197 @@ header {
     transform: translateX(0);
     opacity: 1;
 }
+
+/* ==========================================
+   NIGHT LIFE PREMIUM AESTHETICS (SHADOWS & SHINE)
+   ========================================== */
+
+/* Shifting Metallic Shine Animation */
+@keyframes metallicShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Pulsing Neon/Lounge Border Glow */
+@keyframes pulseGoldGlow {
+    0% {
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.05);
+        border-color: rgba(212, 175, 55, 0.15);
+    }
+    50% {
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+    100% {
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.05);
+        border-color: rgba(212, 175, 55, 0.15);
+    }
+}
+
+/* Base modifications when Night Life theme is selected */
+[data-theme="night-life"] {
+    --bg-color: #030303;
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(212, 175, 55, 0.03) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(229, 228, 226, 0.03) 0px, transparent 50%);
+}
+
+/* Premium Lounge Glass Panel Upgrade */
+[data-theme="night-life"] .glass-panel {
+    background: rgba(10, 10, 12, 0.82) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    animation: float 6s ease-in-out infinite, pulseGoldGlow 8s ease-in-out infinite;
+}
+
+/* Static Large Titles: Olive Hues and Theme Title */
+[data-theme="night-life"] .main-title,
+[data-theme="night-life"] #mood-title {
+    background: linear-gradient(
+        90deg,
+        #cfb53b 0%,
+        #fffacd 20%,
+        #e5e4e2 40%,
+        #fffacd 60%,
+        #d4af37 80%,
+        #cfb53b 100%
+    ) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    animation: metallicShine 8s ease infinite !important;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.25), 0 0 30px rgba(212, 175, 55, 0.1) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Subtitle and quote with premium silver/platinum neon glow */
+[data-theme="night-life"] .subtitle {
+    color: #e5e4e2 !important;
+    text-shadow: 0 0 8px rgba(229, 228, 226, 0.5), 0 0 20px rgba(229, 228, 226, 0.2);
+    font-weight: 400;
+}
+
+[data-theme="night-life"] .quote {
+    color: #f3f3f3 !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.35), 0 0 25px rgba(212, 175, 55, 0.15);
+    font-weight: 300;
+}
+
+/* Dynamic Variant headings inside panels - using currentColor to respect the palette variants */
+[data-theme="night-life"] .panel-heading {
+    text-shadow: 
+        0 0 6px rgba(255, 255, 255, 0.1),
+        0 0 12px currentColor,
+        0 0 24px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* Panel Subheading (Aesthetic Palette) */
+[data-theme="night-life"] .panel-subheading {
+    text-shadow: 0 0 8px currentColor;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+}
+
+/* Panel paragraph with slight metal gleam */
+[data-theme="night-life"] .panel-paragraph {
+    color: #dcdcdc !important;
+    text-shadow: 0 0 5px rgba(220, 220, 220, 0.2);
+    font-weight: 300;
+}
+
+/* Font name display styling with dynamic neon glows */
+[data-theme="night-life"] .font-name {
+    text-shadow: 0 0 10px currentColor, 0 0 20px rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+}
+
+[data-theme="night-life"] .font-label,
+[data-theme="night-life"] .info-section h3 {
+    color: #c0c0c0 !important;
+    text-shadow: 0 0 6px rgba(192, 192, 192, 0.3);
+}
+
+/* Mood selector buttons styling under Night Life theme */
+[data-theme="night-life"] .mood-btn {
+    border-color: rgba(229, 228, 226, 0.25) !important;
+    color: #c0c0c0 !important;
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+[data-theme="night-life"] .mood-btn:hover {
+    border-color: #ffd700 !important;
+    color: #fffacd !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.35), inset 0 0 8px rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+[data-theme="night-life"] .mood-btn.active {
+    background: linear-gradient(135deg, #d4af37, #fffacd) !important;
+    color: #030303 !important;
+    border-color: #d4af37 !important;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600;
+    transform: scale(1.08);
+}
+
+/* Shuffle buttons dynamic glow styling */
+[data-theme="night-life"] .shuffle-btn {
+    background: rgba(255, 255, 255, 0.03) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="night-life"] .shuffle-btn:hover {
+    box-shadow: 0 0 15px currentColor, inset 0 0 5px rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Save buttons glow styling */
+[data-theme="night-life"] .save-btn:hover {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Floating custom theme link & basket icon adjustments */
+[data-theme="night-life"] .basket-btn {
+    background: rgba(15, 15, 18, 0.8) !important;
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+[data-theme="night-life"] .basket-btn:hover {
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+    color: #ffd700 !important;
+}
+
+[data-theme="night-life"] .basket-count {
+    background: #ffd700 !important;
+    color: #030303 !important;
+    border-color: #030303 !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+/* CSS Art shapes inside dynamic panels - neon lights simulation */
+[data-theme="night-life"] .css-art-container {
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="night-life"] .art-top-shape h3 {
+    text-shadow: 0 0 10px currentColor;
+}
+
+[data-theme="night-life"] .art-top-shape p {
+    text-shadow: 0 0 8px currentColor;
+}
